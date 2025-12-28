@@ -1,0 +1,15 @@
+# Buildroot build output
+/buildroot/output/
+/buildroot/dl/
+
+# Temporary files
+*~
+*.swp
+*.tmp
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db

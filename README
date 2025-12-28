@@ -1,0 +1,170 @@
+# Mosesploitable 1.0
+
+Mosesploitable is an open-source Buildroot-based Linux system with a custom-compiled Linux kernel.
+
+The project is focused on clarity, reproducibility, and control: a minimal but complete operating system that boots, runs, and can evolve across architectures.
+
+---
+
+## Name note
+
+Mosesploitable is a project name chosen for personal preference.  
+The system is not intentionally vulnerable.
+
+---
+
+## Project goals
+
+- Build and maintain a real Linux system (kernel + userspace), not a demo
+- Keep the setup clean, explicit, and understandable
+- Support multiple architectures over time
+- Serve as a solid base for experimentation, learning, and future evolution
+
+This is NOT:
+
+- a pre-made distribution copy
+- a “just for fun” throwaway build
+- a security challenge VM
+
+---
+
+## Current status
+
+- Version: Mosesploitable 1.0
+- Base: Buildroot (git snapshot)
+- Kernel: Linux 6.18.2 (custom build)
+- Primary architecture: x86_64
+- Boot-tested: QEMU
+
+The system boots successfully to login and provides a functional Linux environment.
+
+---
+
+## Build requirements
+
+This project is intended to be built on a Linux environment.
+
+Supported and tested build environments:
+
+- Native Linux (recommended)
+- Windows via WSL2 (tested with Ubuntu)
+
+Building directly on Windows without WSL is not supported.
+
+### Required tools and packages
+
+A standard Linux build environment is required, including:
+
+- GCC toolchain
+- GNU Make
+- Bash
+- Git
+- rsync
+- cpio
+- unzip
+- patch
+- bc
+- Python 3
+
+Buildroot will automatically build its own cross-compilers and host tools.
+
+On Debian / Ubuntu systems, the following packages are typically required:
+
+```bash
+sudo apt install \
+  build-essential \
+  git \
+  rsync \
+  bc \
+  unzip \
+  cpio \
+  python3 \
+  file \
+  wget
+```
+
+---
+
+## Build system
+
+The system is built using Buildroot, which handles:
+
+- cross-compilation
+- root filesystem generation
+- kernel integration
+
+Build artifacts are located in:
+
+```
+output/images/
+ ├── bzImage
+ ├── rootfs.ext2
+ └── rootfs.tar
+```
+
+---
+
+## Running with QEMU
+
+### VGA mode
+
+From any directory:
+
+```bash
+qemu-system-x86_64 \
+  -kernel ~/buildroot/output/images/bzImage \
+  -append "root=/dev/sda rw" \
+  -hda ~/buildroot/output/images/rootfs.ext2 \
+  -m 512
+```
+
+### Serial / headless mode
+
+From any directory:
+
+```bash
+qemu-system-x86_64 \
+  -kernel ~/buildroot/output/images/bzImage \
+  -append "root=/dev/sda rw console=ttyS0" \
+  -hda ~/buildroot/output/images/rootfs.ext2 \
+  -nographic \
+  -m 512
+```
+
+Default login (development setup):
+
+- user: root
+- password: root
+
+---
+
+## Roadmap
+
+Planned evolution:
+
+- additional architectures (ARM, i386, others)
+- configuration cleanup and documentation
+- clearer separation between Buildroot config and project identity
+
+Buildroot is expected to remain the base up to version 2.0.  
+Beyond that point, a transition to a full distribution base (e.g. Debian) may be evaluated.
+
+---
+
+## (MY) Philosophy
+
+Buildroot is the tool.  
+The system is ours.
+
+Every choice is explicit. Every component is understood.  
+No magic, no shortcuts.
+
+---
+
+## License
+
+Mosesploitable is released under the GNU General Public License v2 (GPL-2.0-only).
+
+This project builds upon the Linux kernel and Buildroot, which are licensed  
+under the GPL. All original code and configuration provided in this repository  
+follows the same license.
