@@ -168,3 +168,15 @@ Mosesploitable is released under the GNU General Public License v2 (GPL-2.0-only
 This project builds upon the Linux kernel and Buildroot, which are licensed  
 under the GPL. All original code and configuration provided in this repository  
 follows the same license.
+
+
+This release does not include pre-built bootable images (ISO or disk images).
+
+At this stage, Mosesploitable is distributed as a complete Buildroot-based
+source tree, allowing users to build, inspect, and customize the system
+for their target environment.
+
+Pre-built binary images are intentionally deferred to later releases,
+after the project structure and supported architectures are fully defined.
+
+
